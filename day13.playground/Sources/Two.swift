@@ -14,22 +14,35 @@ public class Two {
             }
         }
         
-        let biggest = buses.max { $0.id < $1.id }!
-        var t = ((100000000000000 / biggest.id) * biggest.id) + biggest.offset
-        var found = false
-
-        while (!found) {
-            t += biggest.id
-            
-            found = true
-            for bus in buses {
-                if (((t + bus.offset) % bus.id) != 0) {
-                    found = false
-                    break
-                }
+        var t = 100710732647677
+        let inc = lcm([17, 19, 13, 23, 29, 37, 41, 383])
+        let maxOffset = 67
+        let bId = 457
+        let bOffset = 50
+        while (true) {
+            t += inc
+            if (((t - maxOffset + bOffset) % bId) == 0) {
+                print(t)
+                break
             }
         }
         
-        print(t)
+        print(t - maxOffset)
+    }
+    
+    func gcd(_ a: Int, _ b: Int) -> Int {
+        var (a, b) = (a, b)
+        while b != 0 {
+            (a, b) = (b, a % b)
+        }
+        return abs(a)
+    }
+
+    func lcm(a: Int, b: Int) -> Int {
+        return (a / gcd(a, b)) * b
+    }
+
+    func lcm(_ vector : [Int]) -> Int {
+        return vector.reduce(1, lcm)
     }
 }
