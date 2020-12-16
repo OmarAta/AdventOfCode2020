@@ -14,17 +14,19 @@ public class Two {
             }
         }
         
-        var t = 100710732647677
-        let inc = lcm([17, 19, 13, 23, 29, 37, 41, 383])
-        let maxOffset = 67
-        let bId = 457
-        let bOffset = 50
-        while (true) {
-            t += inc
-            if (((t - maxOffset + bOffset) % bId) == 0) {
-                print(t)
-                break
+        var incInput = [1]
+        let maxOffset = buses.max { $0.offset < $1.offset }!.offset
+
+        var t = 0
+        for bus in buses {
+            let inc = lcm(incInput)
+            while (true) {
+                t += inc
+                if (((t - maxOffset + bus.offset) % bus.id) == 0) {
+                    break
+                }
             }
+            incInput.append(bus.id)
         }
         
         print(t - maxOffset)
